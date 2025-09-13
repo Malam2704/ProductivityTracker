@@ -1,19 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import Home from './pages/Home';
 import './App.css'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import supabase from './client.js';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [dailyProgress, setDailyProgress] = useState([]);
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: <Home dailyProgress={dailyProgress} />,
     },
   ]);
 
@@ -25,7 +25,7 @@ function App() {
         console.error('Error fetching creators:', error);
       } else {
         console.log('Fetched data:', data);
-        setCreators(data);
+        setDailyProgress(data);
       }
     };
     fetchData();
